@@ -1,4 +1,4 @@
-import type {GlyphMetadata, GlyphTransformFn} from "../types";
+import type { GlyphMetadata, GlyphTransformFn } from "../types";
 import crypto from "crypto";
 import isEot from "is-eot";
 import isSvg from "is-svg";
@@ -37,7 +37,7 @@ describe("standalone", () => {
       files: `${fixturesGlob}/svg-icons/**/*`,
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
@@ -50,13 +50,15 @@ describe("standalone", () => {
       files: `${fixturesGlob}/svg-icons/**/*`,
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
     expect(isWoff2(result.woff2)).toBe(true);
 
-    const svgHash = crypto.createHash("md5").update(result.svg).
+    const svgHash = crypto.
+      createHash("md5").
+      update(result.svg.toString()).
       digest("hex");
     const ttfHash = crypto.createHash("md5").update(result.ttf).
       digest("hex");
@@ -82,7 +84,7 @@ describe("standalone", () => {
       formats: ["svg", "ttf", "eot"],
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(result.woff).toBeUndefined();
@@ -95,7 +97,7 @@ describe("standalone", () => {
       formats: ["woff2"],
     });
 
-    expect(result.svg).toBeUndefined();
+    expect(result.svg.toString()).toBeUndefined();
     expect(result.ttf).toBeUndefined();
     expect(result.eot).toBeUndefined();
     expect(result.woff).toBeUndefined();
@@ -109,14 +111,13 @@ describe("standalone", () => {
       templateCacheString: "test",
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
     expect(isWoff2(result.woff2)).toBe(true);
     expect(result.template).toMatchSnapshot();
   });
-
 
   it("should generate only `woff` and `woff2` fonts with build-in template", async () => {
     const result = await standalone({
@@ -126,7 +127,7 @@ describe("standalone", () => {
       templateCacheString: "test",
     });
 
-    expect(result.svg).toBeUndefined();
+    expect(result.svg.toString()).toBeUndefined();
     expect(result.ttf).toBeUndefined();
     expect(result.eot).toBeUndefined();
     expect(isWoff(result.woff)).toBe(true);
@@ -141,7 +142,7 @@ describe("standalone", () => {
       templateCacheString: "test",
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
@@ -156,7 +157,7 @@ describe("standalone", () => {
       templateCacheString: "test",
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
@@ -171,7 +172,7 @@ describe("standalone", () => {
       files: `${fixturesGlob}/svg-icons/**/*`,
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
@@ -190,7 +191,7 @@ describe("standalone", () => {
       templateCacheString: "test",
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
@@ -206,7 +207,7 @@ describe("standalone", () => {
       files: `${fixturesGlob}/svg-icons/**/*`,
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
@@ -222,7 +223,7 @@ describe("standalone", () => {
       files: `${fixturesGlob}/svg-icons/**/*`,
     });
 
-    expect(result.svg).toBeUndefined();
+    expect(result.svg.toString()).toBeUndefined();
     expect(result.ttf).toBeUndefined();
     expect(result.eot).toBeUndefined();
     expect(result.woff).toBeUndefined();
@@ -338,8 +339,7 @@ describe("standalone", () => {
   });
 
   it("should create css selectors with transform titles through function", async () => {
-
-    const glyphTransformFn : GlyphTransformFn = (obj) => {
+    const glyphTransformFn: GlyphTransformFn = (obj) => {
       obj.name += "_transform";
 
       return obj;
@@ -355,7 +355,6 @@ describe("standalone", () => {
 
     expect(result.template).toMatchSnapshot();
   });
-
 
   it("should change unicode symbols in the result using sync function", async () => {
     const { template } = await standalone({
@@ -412,7 +411,7 @@ describe("standalone", () => {
       templateFontPath: "./foo-bar",
     });
 
-    expect(isSvg(result.svg)).toBe(true);
+    expect(isSvg(result.svg.toString())).toBe(true);
     expect(isTtf(result.ttf)).toBe(true);
     expect(isEot(result.eot)).toBe(true);
     expect(isWoff(result.woff)).toBe(true);
