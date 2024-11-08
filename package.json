@@ -82,7 +82,7 @@
     "is-woff": "latest",
     "is-woff2": "latest",
     "jest": "27.1.0",
-    "lint-staged": "11.1.2",
+    "lint-staged": "15.2.10",
     "rimraf": "latest",
     "rollup": "2.79.2",
     "standard-version": "latest",
