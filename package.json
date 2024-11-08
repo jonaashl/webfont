@@ -84,7 +84,7 @@
     "jest": "27.1.0",
     "lint-staged": "11.1.2",
     "rimraf": "latest",
-    "rollup": "2.56.3",
+    "rollup": "2.79.2",
     "standard-version": "latest",
     "ts-node": "latest",
     "tslib": "latest",
